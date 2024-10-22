@@ -13,104 +13,107 @@
         }
         .dashboard-card {
             transition: transform 0.3s, box-shadow 0.3s;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .dashboard-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        .card-icon {
-            font-size: 3rem;
-            color: #007bff;
+        .card-image {
+            width: 128px;
+            height: 128px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border-radius: 15px;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .card-body {
+            padding: 15px;
+            border-radius: 15px;
+            background-color: #fff;
         }
     </style>
 </head>
 <body>
 
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Admin Dashboard</h1>
-        <div class="row g-4">
+        <h1 class="text-center mb-4">SMS-KE | Welcome</h1>
+        <div class="row g-4 justify-content-center">
+
+            <!-- Register Card -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card dashboard-card text-center">
+                    <a href="register/index.html" class="text-decoration-none">
+                        <div class="card-body">
+                            <img src="images/register.png" alt="Register" class="card-image">
+                            <h5 class="card-title">Student Register</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
 
             <!-- Classes Card -->
             <div class="col-lg-4 col-md-6">
-                <div class="card dashboard-card">
-                    <div class="card-body text-center">
-                        <div class="card-icon mb-3">
-                            <i class="bi bi-journal-richtext"></i>
+                <div class="card dashboard-card text-center">
+                    <a href="classes/index.html" class="text-decoration-none">
+                        <div class="card-body">
+                            <img src="images/classes.png" alt="Classes" class="card-image">
+                            <h5 class="card-title">Manage Classes</h5>
                         </div>
-                        <h5 class="card-title">Manage Classes</h5>
-                        <p class="card-text">View and manage the classes offered.</p>
-                        <a href="classes/index.html" class="btn btn-primary">Go to Classes</a>
-                    </div>
+                    </a>
                 </div>
             </div>
 
             <!-- Subjects Card -->
             <div class="col-lg-4 col-md-6">
-                <div class="card dashboard-card">
-                    <div class="card-body text-center">
-                        <div class="card-icon mb-3">
-                            <i class="bi bi-book"></i>
+                <div class="card dashboard-card text-center">
+                    <a href="subjects/index.html" class="text-decoration-none">
+                        <div class="card-body">
+                            <img src="images/subjects.png" alt="Subjects" class="card-image">
+                            <h5 class="card-title">Manage Subjects</h5>
                         </div>
-                        <h5 class="card-title">Manage Subjects</h5>
-                        <p class="card-text">View and manage subjects.</p>
-                        <a href="subjects/index.html" class="btn btn-success">Go to Subjects</a>
-                    </div>
+                    </a>
                 </div>
             </div>
 
-            <!-- Register Card -->
+            <!-- Classes & Students Card -->
             <div class="col-lg-4 col-md-6">
-                <div class="card dashboard-card">
-                    <div class="card-body text-center">
-                        <div class="card-icon mb-3">
-                            <i class="bi bi-person-plus"></i>
+                <div class="card dashboard-card text-center">
+                    <a href="classes_students/index.html" class="text-decoration-none">
+                        <div class="card-body">
+                            <img src="images/classes_students.png" alt="Classes & Students" class="card-image">
+                            <h5 class="card-title">Classes & Students</h5>
                         </div>
-                        <h5 class="card-title">Student Register</h5>
-                        <p class="card-text">View and manage student registrations.</p>
-                        <a href="register/index.html" class="btn btn-warning">Go to Register</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Marks Card -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card dashboard-card">
-                    <div class="card-body text-center">
-                        <div class="card-icon mb-3">
-                            <i class="bi bi-card-checklist"></i>
-                        </div>
-                        <h5 class="card-title">Manage Marks</h5>
-                        <p class="card-text">View and manage student marks.</p>
-                        <a href="marks/index.html" class="btn btn-info">Go to Marks</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Class-Student Card -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card dashboard-card">
-                    <div class="card-body text-center">
-                        <div class="card-icon mb-3">
-                            <i class="bi bi-people"></i>
-                        </div>
-                        <h5 class="card-title">Classes & Students</h5>
-                        <p class="card-text">Manage student class assignments.</p>
-                        <a href="classes_students/index.html" class="btn btn-danger">Go to Classes & Students</a>
-                    </div>
+                    </a>
                 </div>
             </div>
 
             <!-- Examinations Card -->
             <div class="col-lg-4 col-md-6">
-                <div class="card dashboard-card">
-                    <div class="card-body text-center">
-                        <div class="card-icon mb-3">
-                            <i class="bi bi-pencil-square"></i>
+                <div class="card dashboard-card text-center">
+                    <a href="examinations/index.php" class="text-decoration-none">
+                        <div class="card-body">
+                            <img src="images/examinations.png" alt="Examinations" class="card-image">
+                            <h5 class="card-title">Manage Examinations</h5>
                         </div>
-                        <h5 class="card-title">Manage Examinations</h5>
-                        <p class="card-text">View and manage exam schedules.</p>
-                        <a href="examinations/index.php" class="btn btn-secondary">Go to Examinations</a>
-                    </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Marks Card -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card dashboard-card text-center">
+                    <a href="marks/index.html" class="text-decoration-none">
+                        <div class="card-body">
+                            <img src="images/marks.png" alt="Marks" class="card-image">
+                            <h5 class="card-title">Student Marks</h5>
+                        </div>
+                    </a>
                 </div>
             </div>
 
