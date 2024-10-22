@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KSMS | Admission Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../includes/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="../includes/jscripts/menu-1.js"></script>
+    <style>
+
+
+
+
+
+.btn {
+    padding: 0.25rem 0.5rem;
+    border: none; /* Optional: remove border */
+    background: transparent; /* Optional: remove background */
+    color: inherit; /* Make icon color inherit from parent */
+}
+
+.btn:hover {
+    color: #0056b3; /* Example hover color */
+}
+
+
+
+
+
+
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            border-bottom: 1px solid #dee2e6;
+            z-index: 1000;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
+            height: 60px;
+        }
+
+        .content {
+            padding-top: 70px;
+        }
+
+        .scrollable-content {
+            overflow-y: auto;
+            max-height: calc(100vh - 70px);
+        }
+
+        .form-lookup {
+            width: 100%;
+            background-color: #f8f9fa;
+            color: #495057;
+            border: none;
+            border-bottom: 2px solid #007bff;
+            padding: 0.75rem 0;
+            appearance: none;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            .form-lookup {
+                font-size: 0.875rem;
+                padding: 0.5rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-lookup {
+                font-size: 0.75rem;
+                padding: 0.25rem 0;
+            }
+        }
+/*These are the styling for controls in the add marks  fields*/
+        .custom-input,
+.custom-select {
+    border: none; /* Remove all borders */
+    border-bottom: 2px solid #ced4da; /* Add bottom border */
+    border-radius: 0; /* Remove border radius */
+    padding: 0.5rem 0; /* Adjust padding for better height */
+    font-size: 1rem; /* Consistent font size */
+    width: 100%; /* Full width */
+    outline: none; /* Remove outline on focus */
+    background: transparent; /* Transparent background for selects */
+}
+
+/* Change the bottom border color on focus */
+.custom-input:focus,
+.custom-select:focus {
+    border-bottom: 2px solid #007bff; /* Change color on focus */
+    box-shadow: none; /* Remove any shadow */
+}
+
+/* Specific styles for the select to remove default styles */
+.custom-select {
+    -webkit-appearance: none; /* Remove default styling in Safari */
+    -moz-appearance: none; /* Remove default styling in Firefox */
+    appearance: none; /* Remove default styling */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+
+
+
+
+
+
+
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('#email').select2();
+            $('#class').select2();
+            $('#searchClass').select2();
+
+            $.ajax({
+                url: 'ajax/fetch_data.php',
+                type: 'POST',
+                data: { type: 'email' },
+                success: function (response) {
+                    $('#email').html(response);
+                }
+            });
+
+            $.ajax({
+                url: 'ajax/fetch_data.php',
+                type: 'POST',
+                data: { type: 'class' },
+                success: function (response) {
+                    $('#class').html(response);
+                    $('#searchClass').html(response);
+                }
+            });
+
+            $('#biodataForm').on('submit', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'ajax/submit_or_update_admission.php',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        alert(response);
+                        loadAdmissions();
+                        $('#biodataForm')[0].reset();
+                        $('#student_id').val('');
+                        $('#submitBtn').html('<i class="fas fa-check-circle" style="font-size: 24px;"></i>');
+                    }
+                });
+            });
+
+            function loadAdmissions(query = '', className = '') {
+                $.ajax({
+                    url: 'ajax/load_admissions.php',
+                    type: 'GET',
+                    data: { search: query, className: className },
+                    success: function (data) {
+                        $('#admissionsTable tbody').html(data);
+                    }
+                });
+            }
+
+            loadAdmissions();
+
+            $('#search').on('keyup', function () {
+                var query = $(this).val();
+                var className = $('#searchClass').val();
+                loadAdmissions(query, className);
+            });
+
+            $('#searchClass').on('change', function () {
+                var className = $(this).val();
+                var query = $('#search').val();
+                loadAdmissions(query, className);
+            });
+
+            $(document).on('click', '.delete-btn', function () {
+                var id = $(this).data('id');
+                if (confirm('Are you sure you want to delete this record?')) {
+                    $.ajax({
+                        url: 'ajax/delete_admission.php',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (response) {
+                            alert(response);
+                            loadAdmissions();
+                        }
+                    });
+                }
+            });
+
+            $(document).on('click', '.update-btn', function () {
+                var id = $(this).data('id');
+                $.ajax({
+                    url: 'ajax/get_admission.php',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (data) {
+                        var admission = JSON.parse(data);
+                        $('#student_id').val(admission.id);
+                        $('#email').val(admission.student_email).trigger('change');
+                        $('#adm_no').val(admission.admission_number);
+                        $('#class').val(admission.class_admitted).trigger('change');
+
+                        // Change the button to show the update icon instead of text
+                        $('#submitBtn').html('<i class="fas fa-edit" style="font-size: 24px;"></i>');
+                    }
+                });
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="row mb-2">
+        <div class="col-12">
+            <div class="card-elevated"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid gradient-bg-1">
+        <div class="row">
+            <!-- Left column (menu and branding) -->
+            <div class="col-sm-3 scrollable-content">
+                <div class="card-elevated p-4">
+                    <img src="../images/branding/KS.png" alt="ksms Icon" class="icon-img">
+                </div>
+                <div class="card-elevated p-4">
+                    <div class="menu-1">
+                        <div class="menu-item-1">
+                            <a href="home.html" class="d-flex align-items-center p-2 rounded">
+                                <div class="card-elevated rounded-circle p-2 me-2" style="background-color: cornsilk;">
+                                    <img src="../images/menu/home.png" alt="Home Icon" class="img-fluid rounded-circle"
+                                        style="max-width: 40px;">
+                                </div>
+                                <span class="ms-2" style="font-weight: bold;">Register</span>
+                            </a>
+                        </div>
+                        <hr>
+                        <div class="menu-item-1">
+                            <a href="home.html" class="d-flex align-items-center p-2 rounded">
+                                <div class="card-elevated rounded-circle p-2 me-2" style="background-color: cornsilk;">
+                                    <img src="../images/menu/classroom.png" alt="Home Icon"
+                                        class="img-fluid rounded-circle" style="max-width: 40px;">
+                                </div>
+                                <span class="ms-2" style="font-weight: bold;">Classes</span>
+                            </a>
+                        </div>
+                        <hr>
+                        <div class="menu-item-1">
+                            <a href="home.html" class="d-flex align-items-center p-2 rounded">
+                                <div class="card-elevated rounded-circle p-2 me-2" style="background-color: cornsilk;">
+                                    <img src="../images/menu/home.png" alt="Home Icon" class="img-fluid rounded-circle"
+                                        style="max-width: 40px;">
+                                </div>
+                                <span class="ms-2" style="font-weight: bold;">Home</span>
+                            </a>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle column (form and search) -->
+            <div class="col-sm-6 scrollable-content">
+                <div class="card-elevated p-5">
+                    <div class="card-elevated p-5 mb-3">
+                        <div class="card-body">
+                            <h6 class="card-title mb-3">Admit Students to Classes Here</h6>
+                            <form id="biodataForm" action="#" method="POST" class="row g-4 align-items-center">
+                                <input type="hidden" name="id" id="student_id" value="">
+                    
+                                <div class="col-md-4">
+                                    <label for="email" class="form-label">Student Email:</label>
+                                    <select id="email" name="email" class="custom-select" required>
+                                        <option value="">Select Email</option>
+                                    </select>
+                                </div>
+                    
+                                <div class="col-md-3">
+                                    <label for="adm_no" class="form-label">Admission No:</label>
+                                    <input type="text" class="custom-input" name="adm_no" id="adm_no" placeholder="Admission No" required>
+                                </div>
+                    
+                                <div class="col-md-3">
+                                    <label for="class" class="form-label">Class Name:</label>
+                                    <select id="class" name="class" class="custom-select" required>
+                                        <option value="">Select Class</option>
+                                    </select>
+                                </div>
+                    
+                                <div class="col-md-2 d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                                        <i class="fas fa-check-circle" style="font-size: 24px;"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <p></p>
+                
+                    <container class="mt-5 p-4">
+
+                        <!-- Search bar -->
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="search" placeholder="Search by Admission Number or Email">
+                            </div>
+                            <div class="col-md-4">
+                                <select id="searchClass" class="form-lookup">
+                                    <option value="">Filter by Class</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </container>
+                    
+                
+                    <h3>Admissions List</h3>
+                    <table class="table table-bordered" id="admissionsTable">
+                        <thead>
+                            <tr>
+                                <th>Admission Number</th>
+                                <th>Email</th>
+                                <th>Class</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Example row with icon buttons -->
+                            <tr>
+                                <td>123456</td>
+                                <td>student@example.com</td>
+                                <td>Class 1</td>
+                                <td>
+                                    <button class="btn btn-link p-0 update-btn" data-id="1">
+                                        <i class="fas fa-edit" style="font-size: 24px;"></i>
+                                    </button>
+                                    <button class="btn btn-link p-0 delete-btn" data-id="1">
+                                        <i class="fas fa-trash" style="font-size: 24px;"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- More rows will be dynamically populated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Right column (Graphs or Additional content) -->
+            <div class="col-sm-3 scrollable-content">
+                <div class="card-elevated p-5">
+                    <canvas id="myDonutChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

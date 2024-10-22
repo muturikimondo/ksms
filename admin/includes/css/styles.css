@@ -1,0 +1,343 @@
+/* General Form Styles */
+.form-lookup {
+    width: 100%;
+    /* Ensure the select input fits the full column width */
+    background-color: #f8f9fa;
+    /* Light gray background */
+    color: #495057;
+    /* Dark gray text */
+    border: none;
+    /* Remove all borders */
+    border-bottom: 2px solid #007bff;
+    /* Blue bottom border */
+    padding: 0.75rem 0;
+    /* Add padding at the top and bottom */
+    appearance: none;
+    /* Hide the default arrow */
+    background-image: url('path/to/custom-arrow.svg');
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 1rem;
+    /* Adjust the size of the custom arrow */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
+}
+
+
+.btn {
+    padding: 0.25rem 0.5rem;
+    border: none;
+    /* Optional: remove border */
+    background: transparent;
+    /* Optional: remove background */
+    color: inherit;
+    /* Make icon color inherit from parent */
+}
+
+.btn:hover {
+    color: #0056b3;
+    /* Example hover color */
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive Form Styles */
+@media (max-width: 768px) {
+    .form-lookup {
+        font-size: 0.875rem;
+        padding: 0.5rem 0;
+        background-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-lookup {
+        font-size: 0.75rem;
+        padding: 0.25rem 0;
+        background-size: 0.5rem;
+    }
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.pagination-btn {
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin: 0 8px;
+    border: none;
+    background: cornsilk;
+    /*background: linear-gradient(45deg, #DC143C, #3498db);*/
+    /* Gradient for a modern look */
+    color: #383a43;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Soft shadow */
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.pagination-btn:hover {
+    background: linear-gradient(45deg, #9b59b6, #3498db);
+    /* Reverse gradient on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    /* Deeper shadow on hover */
+    transform: translateY(-3px);
+    /* Slightly lift the button on hover */
+}
+
+.pagination-btn.active {
+    background: linear-gradient(45deg, #27ae60, #2ecc71);
+    /* Different gradient for active button */
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.pagination-btn i {
+    font-size: 16px;
+    margin-right: 5px;
+    /* Add some space between icon and text */
+}
+
+.pagination-btn span {
+    margin-left: 5px;
+    font-size: 16px;
+}
+
+/* Add custom styles for arrow buttons */
+.pagination-btn .fa-arrow-left,
+.pagination-btn .fa-arrow-right {
+    font-size: 18px;
+}
+
+/* Make the first and last buttons stand out */
+.pagination-btn.first,
+.pagination-btn.last {
+    background: linear-gradient(45deg, #e74c3c, #f39c12);
+    /* Orange to red gradient */
+}
+
+.pagination-btn.first:hover,
+.pagination-btn.last:hover {
+    background: linear-gradient(45deg, #f39c12, #e74c3c);
+    /* Reverse gradient on hover */
+    transform: translateY(-3px);
+}
+
+
+
+/* Button Styles */
+.three-d-button {
+    background-color: cornsilk;
+    border: 1px solid #d3b8ae;
+    color: #333;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 5px #bfa28a;
+    transition: all 0.3s ease;
+}
+
+.three-d-button:hover {
+    background-color: #f5deb3;
+}
+
+.three-d-button:active {
+    box-shadow: 0 2px #bfa28a;
+    transform: translateY(3px);
+}
+
+.three-d-button i {
+    margin-right: 8px;
+}
+
+/* Gradient Button Hover */
+.gradient-button:hover {
+    background: linear-gradient(to right, #feada6, #f5efef);
+}
+
+/* Layout Styles */
+.first-row {
+    height: 85vh;
+    /* 85% of viewport height */
+}
+
+.second-row {
+    height: auto;
+    /* Height grows as content expands */
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+}
+
+/* Headings */
+h1,
+h2,
+h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+/* Cards */
+.card-header {
+    background: linear-gradient(135deg, #3498db, #f1c40f, #e74c3c);
+    color: white;
+    padding: 15px;
+}
+
+.card-elevated {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease-in-out;
+    padding: 30px;
+}
+
+.card-elevated:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Error Styling */
+.error {
+    color: red;
+}
+
+/* Form Styles */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-control {
+    font-size: 11px;
+    font-family: 'montserrat', sans-serif;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.form-label {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 11px;
+}
+
+/* Autocomplete Suggestions */
+.autocomplete-suggestions {
+    border: 1px solid #e1e1e1;
+    max-height: 150px;
+    overflow-y: auto;
+    background: #fff;
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+}
+
+.autocomplete-suggestion {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.autocomplete-suggestion:hover {
+    background-color: #e1e1e1;
+}
+
+/* Menu Styles */
+.menu-1 {
+    display: none;
+}
+
+.menu-item-1 {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.menu-item-1 a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.menu-item-1 img {
+    margin-right: 10px;
+    max-width: 24px;
+}
+
+.menu-item-1 span {
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    .menu-1 {
+        display: block !important;
+    }
+
+    .menu-toggle-1 {
+        display: none;
+    }
+}
+
+/* Round Card (for image display) */
+.round-card {
+    width: 178px;
+    height: 178px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ddd;
+    background-color: #fff;
+    position: relative;
+}
+
+.round-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.round-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Additional Table Styling */
+.table td,
+.table th {
+    text-align: left;
+}
