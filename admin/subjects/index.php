@@ -1,19 +1,33 @@
+
+<?php
+// File: admin/index.php
+
+// Start session and check if user is an admin
+session_start();
+require '../admin_auth.php';  // Ensure this path is correct based on your file structure
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KSMS | Biodata Form</title>
+    <title>KSMS | Subjects Form</title>
     <!-- Font Awesome CSS -->
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!--CDN FOR Bootstrap Icons-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Favicon -->
-    <link rel="icon" href="../images/branding/KS.ico" type="image/x-icon">    
+    <link rel="icon" href="../images/branding/KS.ico" type="image/x-icon"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">   
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../includes/css/styles.css">   
     <!-- Custom Inline Styles -->
@@ -97,6 +111,11 @@
 </head>
 <body>
     <div class="container-fluid gradient-bg-1">
+    <div class="d-flex justify-content-end mb-3 p-2">
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logoutModal" title="Logout">
+                <i class="bi bi-power"></i>
+            </button>
+        </div>
         <!-- First Row with 85% viewport width -->
         <div class="d-none d-sm-block">
             <div class="row mb-3 gradient-bg-1  d-none d-md-flex">
@@ -135,7 +154,7 @@
                 <!--END HERE-->
                 
                     <div class="card-elevated p-4">
-                        
+                        <div class="card p-4">
                             <div class="menu-toggle-1">
                                 <a href="#" class="btn btn-primary d-block d-sm-none" id="menu-toggle-1">
                                     <i class="bi bi-list"></i>
@@ -199,7 +218,7 @@
                                 </div>
                                 <hr>
                             </div>
-                        
+                        </div>
                     </div>
                 
                 <div class="card-elevated mb-3">
@@ -249,15 +268,15 @@
                         </div>
                     </div>
                 </div>
-                
+                <div class="card mb-3 p-5">
                     <!--Start of Biodata Management Form-->
                         <div class="container mt-5">
-                            <h1 class="text-center">Biodata | Manage</h1>
+                            <h1 class="text-center">Subjects | Manage</h1>
                             <div class="row mb-3 justify-content-end">
                                 <div class="col-12 text-right">
                                     <!-- Your button with the plus icon -->
                                     <button class="custom-button mb-3" data-bs-toggle="modal" data-bs-target="#addModal">
-                                        <i class="bi bi-plus"></i> Add New Record
+                                        <i class="bi bi-plus"></i> Add New Subject
                                     </button>
                                 </div>
                             </div>
@@ -266,7 +285,12 @@
                             <div class="mb-3">
                                 <input type="text" id="search" class="form-control" placeholder="Search...">
                             </div>
-                            
+                            <div class="row mb-3">
+                                <div class="col-3"><strong>Subject Code</strong></div>
+                                <div class="col-3"><strong>Subject Name</strong></div>
+                                <div class="col-3"><strong>Subject Category</strong></div>
+                                <div class="col-3"><strong>Actions</strong></div>
+                            </div>
                             <div id="biodataTable"></div>
                         </div>
                         
@@ -275,70 +299,29 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="addModalLabel">Add New Biodata</h5>
+                                        <h5 class="modal-title" id="addModalLabel">Add New Subject</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <form id="addForm" enctype="multipart/form-data">
+  
                                             <div class="mb-3">
-                                                <label for="name" class="form-label">Name</label>
+                                                <label for="code" class="form-label">Subject Code</label>
+                                                <input type="text" class="form-control" id="code" name="code" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label">Subject Name</label>
                                                 <input type="text" class="form-control" id="name" name="name" required>
                                             </div>
-
-
                                                 <div class="mb-3">
-                                                    <label for="category" class="form-label">Category</label>
+                                                    <label for="category" class="form-label">Subject Category</label>
                                                     <select class="form-control" id="category" name="category" required>
-                                                        <option value="Admin">Admin</option>
-                                                        <option value="Student">Student</option>
-                                                        <option value="Teacher">Teacher</option>
+                                                        <option value="Stem">STEM</option>
+                                                        <option value="Regular">REGULAR</option>
+                                                        <option value="Other">OTHER</option>
                                                     </select>
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label for="gender" class="form-label">Gender</label>
-                                                    <select class="form-control" id="gender" name="gender" required>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
-                                                        
-                                                    </select>
-                                                </div>
-
-
-
-
-
-                                            <div class="mb-3">
-                                                <label for="date_of_birth" class="form-label">Date of Birth</label>
-                                                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
-                                            </div>
-                                            
-                                            <div class="mb-3">
-                                                <label for="date_of_admission" class="form-label">Date of Admission</label>
-                                                <input type="date" class="form-control" id="date_of_admission" name="date_of_admission"
-                                                    required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="county" class="form-label">County</label>
-                                                <input type="text" class="form-control" id="county" name="county" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="home_address" class="form-label">Home Address</label>
-                                                <input type="text" class="form-control" id="home_address" name="home_address" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="phone" class="form-label">Phone</label>
-                                                <input type="text" class="form-control" id="phone" name="phone" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="email" class="form-label">Email</label>
-                                                <input type="email" class="form-control" id="email" name="email" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="upload_photo" class="form-label">Upload Photo</label>
-                                                <input type="file" class="form-control" id="upload_photo" name="upload_photo" required>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                </div> 
+                                            <button type="submit" class="btn custom-button">Add New Subject</button>
                                         </form>
                                     </div>
                                 </div>
@@ -350,69 +333,29 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="editModalLabel">Edit Biodata</h5>
+                                        <h5 class="modal-title" id="editModalLabel">Edit Subjects</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <form id="editForm" enctype="multipart/form-data">
                                             <input type="hidden" id="edit_id" name="id">
                                             <div class="mb-3">
-                                                <label for="edit_name" class="form-label">Name</label>
+                                                <label for="edit_name" class="form-label">Subject Code</label>
+                                                <input type="text" class="form-control" id="edit_code" name="code" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="edit_name" class="form-label">Subject Name</label>
                                                 <input type="text" class="form-control" id="edit_name" name="name" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="edit_date_of_birth" class="form-label">Date of Birth</label>
-                                                <input type="date" class="form-control" id="edit_date_of_birth" name="date_of_birth" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="edit_gender" class="form-label">Gender</label>
-                                                <select class="form-control" id="edit_gender" name="gender" required>
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
+                                                <label for="edit_categoryr" class="form-label">Subject Category</label>
+                                                <select class="form-control" id="edit_category" name="category" required>
+                                                    <option value="Stem">Stem</option>
+                                                    <option value="Regular">Regular</option>
+                                                    <option value="others">Others</option>
                                                 </select>
-                                            </div>
-
-
-                                            <div class="mb-3">
-                                                <label for="category" class="form-label">Category</label>
-                                                <select class="form-control" id="category" name="category" required>
-                                                    <option value="Admin">Admin</option>
-                                                    <option value="Student">Student</option>
-                                                    <option value="Teacher">Teacher</option>
-                                                </select>
-                                            </div>
-
-
-
-
-                                            <div class="mb-3">
-                                                <label for="edit_date_of_admission" class="form-label">Date of Admission</label>
-                                                <input type="date" class="form-control" id="edit_date_of_admission" name="date_of_admission"
-                                                    required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="edit_county" class="form-label">County</label>
-                                                <input type="text" class="form-control" id="edit_county" name="county" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="edit_home_address" class="form-label">Home Address</label>
-                                                <input type="text" class="form-control" id="edit_home_address" name="home_address" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="edit_phone" class="form-label">Phone</label>
-                                                <input type="text" class="form-control" id="edit_phone" name="phone" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="edit_email" class="form-label">Email</label>
-                                                <input type="email" class="form-control" id="edit_email" name="email" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="edit_upload_photo" class="form-label">Upload Photo</label>
-                                                <input type="file" class="form-control" id="edit_upload_photo" name="upload_photo">
-                                                <input type="hidden" id="existing_photo" name="existing_photo">
-                                                <img id="photo_preview" src="#" alt="Photo" style="max-width: 100px; display: none;">
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Update</button>
+                                            </div>          
+                                            <button type="submit" class="btn custom-button">Update Subject</Details></button>
                                         </form>
                                     </div>
                                 </div>
@@ -421,8 +364,12 @@
 
                     <!--End Biodata Management Forms-->
                     
-                   
-                
+                    </div>
+                <div class="card-elevated">                    
+                    
+                    
+                    
+                </div>
             </div>
             <div class="col-sm-3 scrollable">
                 <!-- Left column (menu and graphs) -->
@@ -430,7 +377,7 @@
                     <img src="../images/branding/KS.png" alt="ksms Icon" class="icon-img">
                 </div>
                 <div class="card-elevated p-4">
-                    
+                    <div class="card p-5">
                         <div class="menu-toggle-1">
                             <a href="#" class="btn btn-primary d-block d-sm-none" id="menu-toggle-1">
                                 <i class="bi bi-list"></i>
@@ -506,7 +453,7 @@
                                 </div>
                                 <hr>
                             </div>
-                        
+                        </div>
                     <!--END OF CARD-//-->
                 </div>
                 
@@ -517,15 +464,46 @@
                    
                         
                 </div>
-                
+                <div class="card mb-3">
+                    <div class="card-elevated align-items-center">
+                        <div class="card-body card-elevated">
+                            <canvas id="userTypeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!--End of Scrollable Column-->
             <!--END F TEST FIT-->
         </div>
+
+
+<!-- Logout Confirmation Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to log out?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a href="../../logout.php" class="btn btn-danger">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
     </div>
 
     <!--Scripts Here-->
-<script src="../includes/jscripts/biodata_crud.js"></script>
+<script src="js/subjects_crud.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!--End of Scripts-->

@@ -67,7 +67,7 @@ require 'admin_auth.php';  // Ensure this path is correct based on your file str
             <!-- Register Card -->
             <div class="col-lg-4 col-md-6">
                 <div class="card dashboard-card text-center">
-                    <a href="register/index.html" class="text-decoration-none">
+                    <a href="register/index.php" class="text-decoration-none">
                         <div class="card-body">
                             <img src="images/register.png" alt="Register" class="card-image">
                             <h5 class="card-title">Student Register</h5>
@@ -91,7 +91,7 @@ require 'admin_auth.php';  // Ensure this path is correct based on your file str
             <!-- Subjects Card -->
             <div class="col-lg-4 col-md-6">
                 <div class="card dashboard-card text-center">
-                    <a href="subjects/index.html" class="text-decoration-none">
+                    <a href="subjects/index.php" class="text-decoration-none">
                         <div class="card-body">
                             <img src="images/subjects.png" alt="Subjects" class="card-image">
                             <h5 class="card-title">Manage Subjects</h5>
@@ -103,7 +103,7 @@ require 'admin_auth.php';  // Ensure this path is correct based on your file str
             <!-- Classes & Students Card -->
             <div class="col-lg-4 col-md-6">
                 <div class="card dashboard-card text-center">
-                    <a href="classes_students/index.html" class="text-decoration-none">
+                    <a href="classes_students/index.php" class="text-decoration-none">
                         <div class="card-body">
                             <img src="images/classes_students.png" alt="Classes & Students" class="card-image">
                             <h5 class="card-title">Classes & Students</h5>

@@ -3,11 +3,8 @@
 
 // Start session and check if user is an admin
 session_start();
-require 'admin_auth.php';  // Ensure this path is correct based on your file structure
+require '../admin_auth.php';  // Ensure this path is correct based on your file structure
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,27 +22,16 @@ require 'admin_auth.php';  // Ensure this path is correct based on your file str
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="../includes/jscripts/menu-1.js"></script>
     <style>
+        .btn {
+            padding: 0.25rem 0.5rem;
+            border: none;
+            background: transparent;
+            color: inherit;
+        }
 
-
-
-
-
-.btn {
-    padding: 0.25rem 0.5rem;
-    border: none; /* Optional: remove border */
-    background: transparent; /* Optional: remove background */
-    color: inherit; /* Make icon color inherit from parent */
-}
-
-.btn:hover {
-    color: #0056b3; /* Example hover color */
-}
-
-
-
-
-
-
+        .btn:hover {
+            color: #0056b3;
+        }
 
         .header {
             position: fixed;
@@ -93,41 +79,32 @@ require 'admin_auth.php';  // Ensure this path is correct based on your file str
                 padding: 0.25rem 0;
             }
         }
-/*These are the styling for controls in the add marks  fields*/
+
         .custom-input,
-.custom-select {
-    border: none; /* Remove all borders */
-    border-bottom: 2px solid #ced4da; /* Add bottom border */
-    border-radius: 0; /* Remove border radius */
-    padding: 0.5rem 0; /* Adjust padding for better height */
-    font-size: 1rem; /* Consistent font size */
-    width: 100%; /* Full width */
-    outline: none; /* Remove outline on focus */
-    background: transparent; /* Transparent background for selects */
-}
+        .custom-select {
+            border: none;
+            border-bottom: 2px solid #ced4da;
+            border-radius: 0;
+            padding: 0.5rem 0;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+            background: transparent;
+        }
 
-/* Change the bottom border color on focus */
-.custom-input:focus,
-.custom-select:focus {
-    border-bottom: 2px solid #007bff; /* Change color on focus */
-    box-shadow: none; /* Remove any shadow */
-}
+        .custom-input:focus,
+        .custom-select:focus {
+            border-bottom: 2px solid #007bff;
+            box-shadow: none;
+        }
 
-/* Specific styles for the select to remove default styles */
-.custom-select {
-    -webkit-appearance: none; /* Remove default styling in Safari */
-    -moz-appearance: none; /* Remove default styling in Firefox */
-    appearance: none; /* Remove default styling */
-    padding: 0; /* Remove padding */
-    margin: 0; /* Remove margin */
-}
-
-
-
-
-
-
-
+        .custom-select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding: 0;
+            margin: 0;
+        }
     </style>
     <script>
         $(document).ready(function () {
@@ -223,19 +200,24 @@ require 'admin_auth.php';  // Ensure this path is correct based on your file str
                         $('#adm_no').val(admission.admission_number);
                         $('#class').val(admission.class_admitted).trigger('change');
 
-                        // Change the button to show the update icon instead of text
                         $('#submitBtn').html('<i class="fas fa-edit" style="font-size: 24px;"></i>');
                     }
                 });
             });
         });
+
+        function confirmLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = '../../logout.php'; // Change to your logout URL
+            }
+        }
     </script>
 
 </head>
 
 <body>
     <div class="d-flex justify-content-end mb-3">
-        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logoutModal" title="Logout">
+        <button class="btn btn-danger" onclick="confirmLogout()" title="Logout">
             <i class="bi bi-power"></i>
         </button>
     </div>
@@ -259,8 +241,7 @@ require 'admin_auth.php';  // Ensure this path is correct based on your file str
                         <div class="menu-item-1">
                             <a href="home.html" class="d-flex align-items-center p-2 rounded">
                                 <div class="card-elevated rounded-circle p-2 me-2" style="background-color: cornsilk;">
-                                    <img src="../images/menu/home.png" alt="Home Icon" class="img-fluid rounded-circle"
-                                        style="max-width: 40px;">
+                                    <img src="../images/menu/home.png" alt="Home Icon" class="img-fluid rounded-circle" style="max-width: 40px;">
                                 </div>
                                 <span class="ms-2" style="font-weight: bold;">Register</span>
                             </a>
@@ -269,20 +250,9 @@ require 'admin_auth.php';  // Ensure this path is correct based on your file str
                         <div class="menu-item-1">
                             <a href="home.html" class="d-flex align-items-center p-2 rounded">
                                 <div class="card-elevated rounded-circle p-2 me-2" style="background-color: cornsilk;">
-                                    <img src="../images/menu/classroom.png" alt="Home Icon"
-                                        class="img-fluid rounded-circle" style="max-width: 40px;">
+                                    <img src="../images/menu/classroom.png" alt="Home Icon" class="img-fluid rounded-circle" style="max-width: 40px;">
                                 </div>
                                 <span class="ms-2" style="font-weight: bold;">Classes</span>
-                            </a>
-                        </div>
-                        <hr>
-                        <div class="menu-item-1">
-                            <a href="home.html" class="d-flex align-items-center p-2 rounded">
-                                <div class="card-elevated rounded-circle p-2 me-2" style="background-color: cornsilk;">
-                                    <img src="../images/menu/home.png" alt="Home Icon" class="img-fluid rounded-circle"
-                                        style="max-width: 40px;">
-                                </div>
-                                <span class="ms-2" style="font-weight: bold;">Home</span>
                             </a>
                         </div>
                         <hr>
@@ -290,127 +260,103 @@ require 'admin_auth.php';  // Ensure this path is correct based on your file str
                 </div>
             </div>
 
-            <!-- Middle column (form and search) -->
+            <!-- Right column (form and table) -->
             <div class="col-sm-6 scrollable-content">
-                <div class="card-elevated p-5">
-                    <div class="card-elevated p-5 mb-3">
-                        <div class="card-body">
-                            <h6 class="card-title mb-3">Admit Students to Classes Here</h6>
-                            <form id="biodataForm" action="#" method="POST" class="row g-4 align-items-center">
-                                <input type="hidden" name="id" id="student_id" value="">
-                    
-                                <div class="col-md-4">
-                                    <label for="email" class="form-label">Student Email:</label>
-                                    <select id="email" name="email" class="custom-select" required>
-                                        <option value="">Select Email</option>
-                                    </select>
-                                </div>
-                    
-                                <div class="col-md-3">
-                                    <label for="adm_no" class="form-label">Admission No:</label>
-                                    <input type="text" class="custom-input" name="adm_no" id="adm_no" placeholder="Admission No" required>
-                                </div>
-                    
-                                <div class="col-md-3">
-                                    <label for="class" class="form-label">Class Name:</label>
-                                    <select id="class" name="class" class="custom-select" required>
-                                        <option value="">Select Class</option>
-                                    </select>
-                                </div>
-                    
-                                <div class="col-md-2 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary" id="submitBtn">
-                                        <i class="fas fa-check-circle" style="font-size: 24px;"></i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-
-
-
-
-                    <p></p>
-                
-                    <container class="mt-5 p-4">
-
-                        <!-- Search bar -->
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" id="search" placeholder="Search by Admission Number or Email">
-                            </div>
-                            <div class="col-md-4">
-                                <select id="searchClass" class="form-lookup">
-                                    <option value="">Filter by Class</option>
+                <div class="card-elevated p-4">
+                    <h3 class="text-center">Student Admission Form</h3>
+                    <form id="biodataForm" method="post">
+                        <input type="hidden" id="student_id" name="student_id" value="">
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="email">Email</label>
+                                <select id="email" name="student_email" class="custom-select form-lookup" required>
+                                    <option value="">Select Email</option>
                                 </select>
                             </div>
                         </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <label for="adm_no">Admission Number</label>
+                                <input type="text" id="adm_no" name="admission_number" class="custom-input" required>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <label for="class">Class</label>
+                                <select id="class" name="class_admitted" class="custom-select form-lookup" required>
+                                    <option value="">Select Class</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 text-center">
+                                <button type="submit" id="submitBtn" class="btn btn-primary">
+                                    <i class="fas fa-check-circle" style="font-size: 24px;"></i> Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
 
-                    </container>
-                    
-                
-                    <h3>Admissions List</h3>
+                <div class="card-elevated p-4 mt-4">
+                    <h3 class="text-center">Admissions List</h3>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <input type="text" id="search" placeholder="Search..." class="form-control">
+                        </div>
+                        <div class="col-6">
+                            <select id="searchClass" class="custom-select form-lookup">
+                                <option value="">All Classes</option>
+                            </select>
+                        </div>
+                    </div>
                     <table class="table table-bordered" id="admissionsTable">
                         <thead>
                             <tr>
-                                <th>Admission Number</th>
+                            <th>Admission Number</th>
                                 <th>Email</th>
                                 <th>Class</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Example row with icon buttons -->
-                            <tr>
-                                <td>123456</td>
-                                <td>student@example.com</td>
-                                <td>Class 1</td>
-                                <td>
-                                    <button class="btn btn-link p-0 update-btn" data-id="1">
-                                        <i class="fas fa-edit" style="font-size: 24px;"></i>
-                                    </button>
-                                    <button class="btn btn-link p-0 delete-btn" data-id="1">
-                                        <i class="fas fa-trash" style="font-size: 24px;"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <!-- More rows will be dynamically populated -->
+                            <!-- Dynamic rows go here -->
                         </tbody>
                     </table>
                 </div>
             </div>
-
-            <!-- Right column (Graphs or Additional content) -->
+            <!-- Right column (menu and branding) -->
             <div class="col-sm-3 scrollable-content">
-                <div class="card-elevated p-5">
-                    <canvas id="myDonutChart"></canvas>
+                <div class="card-elevated p-4">
+                    <img src="../images/branding/KS.png" alt="ksms Icon" class="icon-img">
+                </div>
+                <div class="card-elevated p-4">
+                    <div class="menu-1">
+                        <div class="menu-item-1">
+                            <a href="home.html" class="d-flex align-items-center p-2 rounded">
+                                <div class="card-elevated rounded-circle p-2 me-2" style="background-color: cornsilk;">
+                                    <img src="../images/menu/home.png" alt="Home Icon" class="img-fluid rounded-circle" style="max-width: 40px;">
+                                </div>
+                                <span class="ms-2" style="font-weight: bold;">Register</span>
+                            </a>
+                        </div>
+                        <hr>
+                        <div class="menu-item-1">
+                            <a href="home.html" class="d-flex align-items-center p-2 rounded">
+                                <div class="card-elevated rounded-circle p-2 me-2" style="background-color: cornsilk;">
+                                    <img src="../images/menu/classroom.png" alt="Home Icon" class="img-fluid rounded-circle" style="max-width: 40px;">
+                                </div>
+                                <span class="ms-2" style="font-weight: bold;">Classes</span>
+                            </a>
+                        </div>
+                        <hr>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Logout Modal -->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to logout?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a href="../../logout.php" class="btn btn-danger">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
