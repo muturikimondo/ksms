@@ -1,4 +1,13 @@
 <?php
+session_start(); // Start the session
+
+// Check if the user is logged in, otherwise block access
+if (!isset($_SESSION['user_id'])) {
+    header('Content-Type: application/json');
+    echo json_encode(['error' => 'Unauthorized access']);
+    exit();
+}
+
 header('Content-Type: application/json');
 require_once '../../includes/db/config.php';
 
@@ -31,3 +40,4 @@ echo json_encode([
 
 $conn->close();
 ?>
+
