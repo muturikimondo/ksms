@@ -366,45 +366,92 @@ require '../admin_auth.php';  // Ensure this path is correct based on your file 
         }
 
         // Submit the form for creating or updating records
-        function submitForm() {
-            var examination = $('#examination').val();
-            var class_entered = $('#class_entered').val();
-            var subject_entered = $('#subject_entered').val();
-            var Student_regno = $('#Student_regno').val();
-            var student_marks = $('#student_marks').val();
+        
 
-            if (!examination || !class_entered || !subject_entered || !Student_regno || !student_marks) {
-                alert('Please fill all required fields.');
-                return;
+function submitForm() {
+    var examination = $('#examination').val();
+    var class_entered = $('#class_entered').val();
+    var subject_entered = $('#subject_entered').val();
+    var Student_regno = $('#Student_regno').val();
+    var student_marks = $('#student_marks').val();
+
+    // Log the values to the console
+    console.log('examination:', examination);
+    console.log('class_entered:', class_entered);
+    console.log('subject_entered:', subject_entered);
+    console.log('Student_regno:', Student_regno);
+    console.log('student_marks:', student_marks);
+
+    // Check if required fields are filled
+    if (!examination || !class_entered || !subject_entered || !Student_regno || !student_marks) {
+        alert('Please fill all required fields.');
+        return;
+    }
+
+    var formData = {
+        examination: examination,
+        class_entered: class_entered,
+        subject_entered: subject_entered,
+        Student_regno: Student_regno,
+        student_marks: student_marks,
+        record_id: $('#record_id').val()
+    };
+
+    var url = formData.record_id ? 'ajax/updateRecord.php' : 'ajax/insertRecord.php';
+
+    $.ajax({
+        url: url,
+        method: 'POST',
+        data: formData,
+        dataType: 'json',
+        success: function (response) {
+            alert(response.message || 'Operation successful');
+            loadTableData(currentPage);
+
+            // Retain selected values in examination, class_entered, subject_entered
+            $('#examination').val(examination).trigger('change');
+            $('#class_entered').val(class_entered).trigger('change');
+            $('#subject_entered').val(subject_entered).trigger('change');
+
+            // Change Student_regno to the next option
+            var $studentRegnoSelect = $('#Student_regno');
+            var selectedIndex = $studentRegnoSelect.prop('selectedIndex');
+            var nextIndex = selectedIndex + 1;
+
+            // If there's a next option, select it; otherwise, reset to the first option
+            if (nextIndex < $studentRegnoSelect.find('option').length) {
+                $studentRegnoSelect.prop('selectedIndex', nextIndex).trigger('change');
+            } else {
+                $studentRegnoSelect.prop('selectedIndex', 0).trigger('change');
             }
 
-            var formData = {
-                examination: examination,
-                class_entered: class_entered,
-                subject_entered: subject_entered,
-                Student_regno: Student_regno,
-                student_marks: student_marks,
-                record_id: $('#record_id').val()
-            };
-
-            var url = formData.record_id ? 'ajax/updateRecord.php' : 'ajax/insertRecord.php';
-
-            $.ajax({
-                url: url,
-                method: 'POST',
-                data: formData,
-                dataType: 'json',
-                success: function (response) {
-                    alert(response.message || 'Operation successful');
-                    loadTableData(currentPage); // Reload current page
-                    resetForm();
-                },
-                error: function (xhr) {
-                    console.log('Error:', xhr.responseText);
-                    alert('Error occurred: ' + xhr.responseText);
-                }
-            });
+            resetForm(); // If needed
+        },
+        error: function (xhr) {
+            console.log('Error:', xhr.responseText);
+            alert('Error occurred: ' + xhr.responseText);
         }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+        
+
+// Function to reset the form (customize as needed)
+function resetForm() {
+    $('#student_marks').val(''); // Reset marks field or add others as necessary
+    // Do not reset the select boxes to keep their values
+}
+
 
         // Populate the select elements with data and pre-select a specific option if provided
         function populateSelect(selector, data, selectedValue) {

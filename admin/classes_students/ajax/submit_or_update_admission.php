@@ -3,9 +3,9 @@ require_once '../../includes/db/config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = isset($_POST['id']) ? intval($_POST['id']) : null;
-    $adm_no = mysqli_real_escape_string($conn, $_POST['adm_no']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $class = mysqli_real_escape_string($conn, $_POST['class']);
+    $adm_no = mysqli_real_escape_string($conn, $_POST['admission_number']);
+    $email = mysqli_real_escape_string($conn, $_POST['student_email']);
+    $class = mysqli_real_escape_string($conn, $_POST['class_admitted']);
 
     if ($id) {
         // Update existing record

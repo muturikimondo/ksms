@@ -79,7 +79,7 @@ require 'admin_auth.php';  // Ensure this path is correct based on your file str
             <!-- Classes Card -->
             <div class="col-lg-4 col-md-6">
                 <div class="card dashboard-card text-center">
-                    <a href="classes/index.html" class="text-decoration-none">
+                    <a href="classes/index.php" class="text-decoration-none">
                         <div class="card-body">
                             <img src="images/classes.png" alt="Classes" class="card-image">
                             <h5 class="card-title">Manage Classes</h5>

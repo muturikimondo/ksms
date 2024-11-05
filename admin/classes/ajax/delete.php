@@ -1,4 +1,6 @@
 <?php
+
+
 include '../../includes/db/config.php';
 
 $id = $_POST['id'];

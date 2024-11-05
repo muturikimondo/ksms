@@ -1,3 +1,14 @@
+
+<?php
+// File: admin/index.php
+
+// Start session and check if user is an admin
+session_start();
+require '../admin_auth.php';  // Ensure this path is correct based on your file structure
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +20,7 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!--CDN FOR Bootstrap Icons-->
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Favicon -->
@@ -97,6 +108,15 @@
 </head>
 <body>
     <div class="container-fluid gradient-bg-1">
+
+
+    <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logoutModal" title="Logout">
+                <i class="bi bi-power"></i>
+            </button>
+        </div>
+
+
         <!-- First Row with 85% viewport width -->
         <div class="d-none d-sm-block">
             <div class="row mb-3 gradient-bg-1  d-none d-md-flex">
@@ -471,6 +491,35 @@
             <!--END F TEST FIT-->
         </div>
     </div>
+
+
+<!-- Logout Confirmation Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to log out?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a href="../../logout.php" class="btn btn-danger">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
 
     <!--Scripts Here-->
 <script src="js/subjects_crud.js"></script>
